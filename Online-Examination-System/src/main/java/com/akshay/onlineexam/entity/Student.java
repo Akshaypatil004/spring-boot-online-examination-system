@@ -17,7 +17,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name="students")
+@Table(name = "students")
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,33 +28,36 @@ public class Student {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@OneToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "user_id" ,nullable = false,unique = true)
+	@JoinColumn(name = "user_id", nullable = false, unique = true)
 	private User user;
-	
-	@Column(name="full_name", nullable = false,length = 100)
+
+	@Column(name = "full_name", nullable = false, length = 100)
 	private String fullName;
-	
-	@Column(name="roll_number", nullable = false,unique = true,length = 30)
+
+	@Column(name = "roll_number", nullable = false, unique = true, length = 30)
 	private String rollNumber;
-	
-	@ManyToOne(fetch = FetchType.LAZY,optional = false)
-	@JoinColumn(name="academic_program_id",nullable = false)
+
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "academic_program_id", nullable = false)
 	private AcademicProgram academicProgram;
-	
-	@Column(name="current_year",nullable = false)
+
+	@Column(name = "current_year", nullable = false)
 	private Integer currentYear;
-	
+
+	@Column(name = "current_semester", nullable = false)
+	private Integer currentSemester;
+
 	@Column(length = 50)
 	private String division;
-	
+
 	@Column(length = 15)
 	private String phone;
-	
-	@Column(name="created_at")
+
+	@Column(name = "created_at")
 	private LocalDateTime createdAt;
-	
-	@Column(name="updated_at")
+
+	@Column(name = "updated_at")
 	private LocalDateTime updatedAt;
 }
