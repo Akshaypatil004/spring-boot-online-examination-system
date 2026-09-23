@@ -3,17 +3,74 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Student area | Exam Portal</title>
+  <meta name="description" content="Student dashboard">
+  <title>Student Dashboard | Exam Portal</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="../css/theme.css"><link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-  <header><nav class="navbar border-bottom bg-body"><div class="container"><a class="navbar-brand fw-semibold" href="../index.html">Exam<span class="text-primary">Portal</span></a><button class="btn btn-outline-secondary" type="button" data-logout>Sign out</button></div></nav></header>
-  <main class="container py-5" data-protected-page>
-    <div class="auth-card"><span class="section-label">STUDENT AREA</span><h1 class="h3 mt-2">You are signed in</h1><p class="text-body-secondary mb-0">Your student workspace will be available in a later milestone.</p></div>
+  <header>
+    <nav class="navbar navbar-expand-lg border-bottom bg-body">
+      <div class="container">
+        <a class="navbar-brand fw-semibold d-flex align-items-center gap-2" href="dashboard.html"><span class="brand-mark"><i class="bi bi-journal-check" aria-hidden="true"></i></span><span>Exam<span class="text-primary">Portal</span></span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#studentNavigation" aria-controls="studentNavigation" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="studentNavigation">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="dashboard.html">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="profile.html">My Profile</a></li>
+            <li class="nav-item ms-lg-2"><button class="btn btn-outline-secondary theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark theme" title="Switch theme"><i class="bi bi-moon-stars" data-theme-icon aria-hidden="true"></i><span class="d-lg-none ms-2" data-theme-label>Dark theme</span></button></li>
+            <li class="nav-item ms-lg-1"><button class="btn btn-primary" type="button" data-logout><i class="bi bi-box-arrow-right me-1" aria-hidden="true"></i>Sign out</button></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container py-4 py-lg-5" data-protected-page data-student-view="dashboard">
+    <div class="student-loading" data-student-loading role="status">
+      <span class="spinner-border spinner-border-sm text-primary" aria-hidden="true"></span>
+      <span>Loading your student profile…</span>
+    </div>
+    <div class="alert alert-danger d-none" role="alert" data-student-error>
+      <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-2"><span data-student-error-message>Unable to load your profile. Please try again.</span><button class="btn btn-sm btn-outline-danger" type="button" data-student-retry>Try again</button></div>
+    </div>
+    <div class="d-none" data-student-content>
+      <div class="student-welcome mb-4 mb-lg-5">
+        <div>
+          <span class="section-label">STUDENT DASHBOARD</span>
+          <h1 class="h2 fw-semibold mt-2 mb-2">Welcome, <span data-field="fullName"></span></h1>
+          <p class="text-body-secondary mb-0">Here is a summary of your student profile.</p>
+        </div>
+        <a class="btn btn-outline-primary align-self-sm-center" href="profile.html"><i class="bi bi-person-lines-fill me-2" aria-hidden="true"></i>View full profile</a>
+      </div>
+
+      <section class="student-overview mb-4" aria-labelledby="overview-title">
+        <div class="overview-heading"><div class="welcome-icon"><i class="bi bi-mortarboard" aria-hidden="true"></i></div><div><h2 class="h5 mb-1" id="overview-title" data-field="academicProgramName"></h2><p class="text-body-secondary small mb-0">Academic program</p></div></div>
+        <div class="overview-details">
+          <div class="overview-item"><span class="overview-label">Roll number</span><span class="overview-value" data-field="rollNumber"></span></div>
+          <div class="overview-item"><span class="overview-label">Current year</span><span class="overview-value" data-field="currentYear"></span></div>
+          <div class="overview-item"><span class="overview-label">Current semester</span><span class="overview-value" data-field="currentSemester"></span></div>
+          <div class="overview-item"><span class="overview-label">Division</span><span class="overview-value" data-field="division"></span></div>
+        </div>
+      </section>
+
+      <section class="auth-card dashboard-contact" aria-labelledby="contact-title">
+        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-2 mb-3"><div><h2 class="h5 mb-1" id="contact-title">Your account</h2><p class="small text-body-secondary mb-0">Contact details from your student profile</p></div><a class="link-primary small fw-semibold" href="profile.html">View details <i class="bi bi-arrow-right" aria-hidden="true"></i></a></div>
+        <div class="row g-3">
+          <div class="col-md-6"><div class="account-detail"><i class="bi bi-envelope text-primary" aria-hidden="true"></i><div><span class="account-label">Email address</span><span class="account-value" data-field="email"></span></div></div></div>
+          <div class="col-md-6"><div class="account-detail"><i class="bi bi-telephone text-primary" aria-hidden="true"></i><div><span class="account-label">Phone number</span><span class="account-value" data-field="phone"></span></div></div></div>
+        </div>
+      </section>
+    </div>
   </main>
-  <script src="../js/api.js" defer></script><script src="../js/auth.js" defer></script>
-  <script>document.addEventListener('DOMContentLoaded', () => window.Auth.requireRole('STUDENT'));</script>
+
+  <footer class="site-footer border-top py-4"><div class="container d-flex flex-column flex-sm-row justify-content-between align-items-center gap-2"><a class="footer-brand text-decoration-none fw-semibold" href="../index.html">Exam<span class="text-primary">Portal</span></a><p class="small text-body-secondary mb-0">&copy; <span data-current-year></span> Online Examination System</p></div></footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="../js/api.js" defer></script>
+  <script src="../js/auth.js" defer></script>
+  <script src="../js/common.js" defer></script>
+  <script src="../js/student.js" defer></script>
 </body>
 </html>

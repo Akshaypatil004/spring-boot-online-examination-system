@@ -18,10 +18,37 @@ main { flex: 1; }
 .site-footer { background: var(--bs-body-bg); }
 .auth-main { display: flex; align-items: center; flex: 1; background: var(--surface-soft); }
 .auth-card { padding: 2rem; border: 1px solid var(--border-soft); border-radius: 12px; background: var(--bs-body-bg); box-shadow: 0 12px 36px rgb(25 45 80 / 7%); }
+.student-loading { display: flex; align-items: center; gap: .75rem; min-height: 220px; color: var(--bs-secondary-color); }
+.student-welcome { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 1rem; }
+.student-overview { overflow: hidden; border: 1px solid var(--border-soft); border-radius: 12px; background: var(--bs-body-bg); }
+.overview-heading { display: flex; align-items: center; gap: 1rem; padding: 1.5rem; border-bottom: 1px solid var(--border-soft); }
+.overview-heading h2 { overflow-wrap: anywhere; }
+.overview-details { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.overview-item { display: flex; flex-direction: column; gap: .35rem; min-width: 0; padding: 1.25rem 1.5rem; border-right: 1px solid var(--border-soft); }
+.overview-item:last-child { border-right: 0; }
+.overview-label, .account-label { color: var(--bs-secondary-color); font-size: .8rem; }
+.overview-value, .account-value { overflow-wrap: anywhere; font-weight: 600; }
+.account-detail { display: flex; align-items: flex-start; gap: .8rem; min-width: 0; padding: 1rem; border-radius: 8px; background: var(--surface-soft); }
+.account-detail > i { font-size: 1.15rem; }
+.account-detail > div { display: flex; flex-direction: column; gap: .2rem; min-width: 0; }
+.profile-card { margin-bottom: 1.25rem; }
+.profile-section-heading { display: flex; align-items: center; gap: 1rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-soft); }
+.profile-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 2rem; row-gap: 0; margin: 0; }
+.profile-field { min-width: 0; padding: 1rem 0; border-bottom: 1px solid var(--border-soft); }
+.profile-field:nth-last-child(-n + 2) { border-bottom: 0; }
+.profile-field dt { margin-bottom: .35rem; color: var(--bs-secondary-color); font-size: .82rem; font-weight: 500; }
+.profile-field dd { margin: 0; overflow-wrap: anywhere; font-weight: 600; }
 
 @media (max-width: 575.98px) {
   .hero-section .container { padding-top: 3.25rem !important; padding-bottom: 3.25rem !important; }
   .display-4 { font-size: 2.45rem; }
   .welcome-panel { padding: 1.5rem; }
   .auth-card { padding: 1.5rem; }
+  .overview-details { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .overview-item { padding: 1rem; }
+  .overview-item:nth-child(2) { border-right: 0; }
+  .overview-item:nth-child(-n + 2) { border-bottom: 1px solid var(--border-soft); }
+  .profile-grid { grid-template-columns: minmax(0, 1fr); }
+  .profile-field:nth-last-child(-n + 2) { border-bottom: 1px solid var(--border-soft); }
+  .profile-field:last-child { border-bottom: 0; }
 }
