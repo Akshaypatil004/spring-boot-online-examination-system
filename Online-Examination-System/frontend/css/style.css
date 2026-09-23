@@ -1,0 +1,24 @@
+:root { --page-max-width: 1140px; }
+
+body { min-height: 100vh; display: flex; flex-direction: column; }
+main { flex: 1; }
+.container { max-width: var(--page-max-width); }
+.navbar { min-height: 70px; }
+.navbar-brand, .footer-brand { color: var(--bs-body-color); letter-spacing: -.02em; }
+.brand-mark { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 8px; color: #fff; background: #3157a4; font-size: 1.05rem; }
+.theme-toggle { min-width: 42px; }
+.hero-section { background: linear-gradient(115deg, var(--bs-body-bg) 55%, var(--hero-accent)); }
+.hero-section .container { padding-top: 5rem !important; padding-bottom: 5rem !important; }
+.eyebrow, .section-label { color: var(--bs-primary); font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.display-4 { max-width: 680px; letter-spacing: -.045em; line-height: 1.12; }
+.lead { max-width: 580px; font-size: 1.12rem; }
+.welcome-panel { max-width: 390px; margin-inline: auto; padding: 2rem; border: 1px solid var(--border-soft); border-radius: 12px; background: var(--bs-body-bg); box-shadow: 0 18px 50px rgb(25 45 80 / 8%); }
+.welcome-icon { display: grid; place-items: center; width: 54px; height: 54px; border-radius: 12px; color: var(--bs-primary); background: var(--surface-soft); font-size: 1.5rem; }
+.panel-rule { height: 1px; margin: 1.5rem 0; background: var(--border-soft); }
+.site-footer { background: var(--bs-body-bg); }
+
+@media (max-width: 575.98px) {
+  .hero-section .container { padding-top: 3.25rem !important; padding-bottom: 3.25rem !important; }
+  .display-4 { font-size: 2.45rem; }
+  .welcome-panel { padding: 1.5rem; }
+}
