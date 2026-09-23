@@ -8,5 +8,5 @@ import com.akshay.onlineexam.entity.Option;
 import com.akshay.onlineexam.entity.Question;
 
 public interface OptionRepository extends JpaRepository<Option, Long>{
-	List<Question> findByQuestionId(Long questionId);
+	List<Option> findByQuestionId(Long questionId);
 }
