@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student area | Exam Portal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="../css/theme.css"><link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header><nav class="navbar border-bottom bg-body"><div class="container"><a class="navbar-brand fw-semibold" href="../index.html">Exam<span class="text-primary">Portal</span></a><button class="btn btn-outline-secondary" type="button" data-logout>Sign out</button></div></nav></header>
+  <main class="container py-5" data-protected-page>
+    <div class="auth-card"><span class="section-label">STUDENT AREA</span><h1 class="h3 mt-2">You are signed in</h1><p class="text-body-secondary mb-0">Your student workspace will be available in a later milestone.</p></div>
+  </main>
+  <script src="../js/api.js" defer></script><script src="../js/auth.js" defer></script>
+  <script>document.addEventListener('DOMContentLoaded', () => window.Auth.requireRole('STUDENT'));</script>
+</body>
+</html>
