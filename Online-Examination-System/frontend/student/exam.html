@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Student examination attempt">
+  <title>Exam | Exam Portal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header><nav class="navbar border-bottom bg-body"><div class="container"><a class="navbar-brand fw-semibold" href="dashboard.html">Exam<span class="text-primary">Portal</span></a><div class="d-flex align-items-center gap-2"><span class="exam-timer badge text-bg-light border d-none" data-exam-timer aria-live="polite"><i class="bi bi-clock me-1" aria-hidden="true"></i><span data-timer-value>--:--</span></span><button class="btn btn-outline-secondary theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark theme" title="Switch theme"><i class="bi bi-moon-stars" data-theme-icon aria-hidden="true"></i><span class="d-lg-none ms-2" data-theme-label>Dark theme</span></button><button class="btn btn-outline-secondary" type="button" data-logout>Sign out</button></div></div></nav></header>
+  <main class="container py-4 py-lg-5" data-protected-page data-exam-page>
+    <div class="student-loading" data-exam-loading role="status"><span class="spinner-border spinner-border-sm text-primary" aria-hidden="true"></span><span>Loading your examination…</span></div>
+    <div class="alert alert-danger d-none" role="alert" data-exam-error><div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-2"><span data-exam-error-message>Unable to load this examination.</span><a class="btn btn-sm btn-outline-danger" href="exams.html">Available exams</a></div></div>
+    <section class="exam-submitted d-none" data-exam-submitted aria-labelledby="submitted-title"><div class="welcome-icon"><i class="bi bi-check-lg" aria-hidden="true"></i></div><span class="section-label d-block mt-4">ATTEMPT SUBMITTED</span><h1 class="h3 fw-semibold mt-2" id="submitted-title">Your exam has been submitted</h1><p class="text-body-secondary">Your answers have been recorded. Open your result when it is available.</p><a class="btn btn-primary d-none" data-submitted-result href="results.html">View my results</a><a class="btn btn-outline-secondary ms-2" href="dashboard.html">Return to dashboard</a></section>
+    <div class="d-none" data-exam-content>
+      <div class="exam-heading mb-4"><div><span class="section-label">EXAM IN PROGRESS</span><h1 class="h2 fw-semibold mt-2 mb-1" data-exam-title>Examination</h1><p class="text-body-secondary mb-0"><span data-exam-question-count>0</span> questions</p></div><div class="exam-progress-label"><span class="small text-body-secondary">Answered</span><strong><span data-answered-count>0</span> / <span data-total-count>0</span></strong></div></div>
+      <div class="alert alert-warning d-none" data-timer-warning role="status">Time is running low. Your exam will be submitted when the timer reaches zero.</div>
+      <div class="alert alert-danger d-none" data-answer-error role="alert"><span data-answer-error-message>An answer could not be saved.</span></div>
+      <div class="vstack gap-3" data-question-list></div>
+      <div class="exam-submit-bar mt-4"><p class="small text-body-secondary mb-0">Your answers are saved as you select them.</p><button class="btn btn-primary" type="button" data-submit-exam><i class="bi bi-send me-2" aria-hidden="true"></i>Submit exam</button></div>
+    </div>
+  </main>
+  <footer class="site-footer border-top py-4"><div class="container d-flex flex-column flex-sm-row justify-content-between align-items-center gap-2"><a class="footer-brand text-decoration-none fw-semibold" href="../index.html">Exam<span class="text-primary">Portal</span></a><p class="small text-body-secondary mb-0">&copy; <span data-current-year></span> Online Examination System</p></div></footer>
+  <script src="../js/api.js" defer></script>
+  <script src="../js/auth.js" defer></script>
+  <script src="../js/common.js" defer></script>
+  <script src="../js/exam.js" defer></script>
+</body>
+</html>

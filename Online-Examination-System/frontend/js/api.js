@@ -2,11 +2,12 @@
   const API_BASE_URL = 'http://localhost:8080';
 
   class ApiError extends Error {
-    constructor(status, message, payload) {
+    constructor(status, message, payload, backendMessage = '') {
       super(message);
       this.name = 'ApiError';
       this.status = status;
       this.payload = payload;
+      this.backendMessage = backendMessage;
     }
   }
 
@@ -30,10 +31,19 @@
       try { payload = await response.json(); } catch { payload = null; }
     }
     if (!response.ok) {
-      const message = typeof payload?.message === 'string' ? payload.message : 'The request could not be completed.';
+      const backendMessage = typeof payload?.message === 'string' ? payload.message : '';
+      const message = response.status === 400
+        ? 'The request could not be accepted. Review the information and try again.'
+        : response.status === 404
+          ? 'The requested information could not be found.'
+          : response.status === 409
+            ? 'This request conflicts with the current data. Refresh and try again.'
+            : response.status >= 500
+              ? 'The server could not complete this request. Please try again later.'
+              : 'The request could not be completed. Please try again.';
       if (response.status === 401 && token) window.Auth?.handleUnauthorized();
       if (response.status === 403 && token) window.Auth?.handleForbidden();
-      throw new ApiError(response.status, message, payload);
+      throw new ApiError(response.status, message, payload, backendMessage);
     }
     return payload;
   }
@@ -41,6 +51,7 @@
   window.Api = {
     request,
     post(path, body) { return request(path, { method: 'POST', body: JSON.stringify(body) }); },
+    put(path, body) { return request(path, { method: 'PUT', body: JSON.stringify(body) }); },
     get(path) { return request(path, { method: 'GET' }); },
     ApiError
   };

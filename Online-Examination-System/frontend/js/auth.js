@@ -11,8 +11,9 @@
     window.sessionStorage.removeItem(ROLE_KEY);
   }
   function logout() {
+    const destination = getRole() === 'ADMIN' ? '../login.html' : '../index.html';
     clearSession();
-    window.location.replace('../index.html');
+    window.location.replace(destination);
   }
   function requireRole(role) {
     if (!getToken()) {

@@ -363,11 +363,13 @@ public class AttemptServiceImpl implements AttemptService {
         int attemptedQuestions = answers.size();
         int correctAnswers = 0;
         int wrongAnswers = 0;
+        int score = 0;
 
         for (StudentAnswer answer : answers) {
 
             if (answer.getSelectedOption().getIsCorrect()) {
                 correctAnswers++;
+                score += answer.getQuestion().getMarks();
             } else {
                 wrongAnswers++;
             }
@@ -376,12 +378,11 @@ public class AttemptServiceImpl implements AttemptService {
         int unansweredQuestions =
             totalQuestions - attemptedQuestions;
 
-        int score = correctAnswers;
-
+        int totalMarks = attempt.getExam().getTotalMarks();
         BigDecimal percentage =
-            totalQuestions == 0
+            totalMarks == 0
                 ? BigDecimal.ZERO
-                : BigDecimal.valueOf(score * 100.0 / totalQuestions)
+                : BigDecimal.valueOf(score * 100.0 / totalMarks)
                     .setScale(2, java.math.RoundingMode.HALF_UP);
 
         ResultStatus resultStatus =

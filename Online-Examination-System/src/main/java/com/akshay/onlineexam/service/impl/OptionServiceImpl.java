@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.akshay.onlineexam.dto.question.OptionRequest;
 import com.akshay.onlineexam.dto.question.OptionResponse;
 import com.akshay.onlineexam.entity.Option;
+import com.akshay.onlineexam.entity.ExamStatus;
 import com.akshay.onlineexam.entity.Question;
 import com.akshay.onlineexam.exception.InvalidRequestException;
 import com.akshay.onlineexam.exception.ResourceNotFoundException;
@@ -37,9 +38,9 @@ public class OptionServiceImpl implements OptionService {
                     )
                 );
 
-        if (question.getExam().getStatus().name().equals("CLOSED")) {
+        if (question.getExam().getStatus() != ExamStatus.DRAFT) {
             throw new InvalidRequestException(
-                "Cannot add option to a closed exam"
+                "Options can only be changed while an exam is in DRAFT status"
             );
         }
 
@@ -98,11 +99,10 @@ public class OptionServiceImpl implements OptionService {
         if (option.getQuestion()
                 .getExam()
                 .getStatus()
-                .name()
-                .equals("CLOSED")) {
+                != ExamStatus.DRAFT) {
 
             throw new InvalidRequestException(
-                "Cannot update option of a closed exam"
+                "Options can only be changed while an exam is in DRAFT status"
             );
         }
 
@@ -130,11 +130,10 @@ public class OptionServiceImpl implements OptionService {
         if (option.getQuestion()
                 .getExam()
                 .getStatus()
-                .name()
-                .equals("CLOSED")) {
+                != ExamStatus.DRAFT) {
 
             throw new InvalidRequestException(
-                "Cannot delete option of a closed exam"
+                "Options can only be changed while an exam is in DRAFT status"
             );
         }
 

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.akshay.onlineexam.dto.question.QuestionRequest;
 import com.akshay.onlineexam.dto.question.QuestionResponse;
 import com.akshay.onlineexam.entity.Exam;
+import com.akshay.onlineexam.entity.ExamStatus;
 import com.akshay.onlineexam.entity.Question;
 import com.akshay.onlineexam.entity.QuestionStatus;
 import com.akshay.onlineexam.exception.InvalidRequestException;
@@ -38,9 +39,9 @@ public class QuestionServiceImpl implements QuestionService {
                     )
                 );
 
-        if (exam.getStatus().name().equals("CLOSED")) {
+        if (exam.getStatus() != ExamStatus.DRAFT) {
             throw new InvalidRequestException(
-                "Cannot add question to a closed exam"
+                "Questions can only be changed while an exam is in DRAFT status"
             );
         }
 
@@ -109,9 +110,9 @@ public class QuestionServiceImpl implements QuestionService {
                     )
                 );
 
-        if (question.getExam().getStatus().name().equals("CLOSED")) {
+        if (question.getExam().getStatus() != ExamStatus.DRAFT) {
             throw new InvalidRequestException(
-                "Cannot update question of a closed exam"
+                "Questions can only be changed while an exam is in DRAFT status"
             );
         }
 
@@ -136,9 +137,9 @@ public class QuestionServiceImpl implements QuestionService {
                     )
                 );
 
-        if (question.getExam().getStatus().name().equals("CLOSED")) {
+        if (question.getExam().getStatus() != ExamStatus.DRAFT) {
             throw new InvalidRequestException(
-                "Cannot delete question of a closed exam"
+                "Questions can only be changed while an exam is in DRAFT status"
             );
         }
 

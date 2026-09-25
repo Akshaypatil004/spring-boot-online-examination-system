@@ -13,12 +13,14 @@ import com.akshay.onlineexam.dto.exam.ExamRequest;
 import com.akshay.onlineexam.dto.exam.ExamResponse;
 import com.akshay.onlineexam.entity.Exam;
 import com.akshay.onlineexam.entity.ExamStatus;
+import com.akshay.onlineexam.entity.Question;
 import com.akshay.onlineexam.entity.Student;
 import com.akshay.onlineexam.entity.Subject;
 import com.akshay.onlineexam.entity.User;
 import com.akshay.onlineexam.exception.InvalidRequestException;
 import com.akshay.onlineexam.exception.ResourceNotFoundException;
 import com.akshay.onlineexam.repository.ExamRepository;
+import com.akshay.onlineexam.repository.QuestionRepository;
 import com.akshay.onlineexam.repository.StudentRepository;
 import com.akshay.onlineexam.repository.SubjectRepository;
 import com.akshay.onlineexam.repository.UserRepository;
@@ -31,6 +33,7 @@ import lombok.RequiredArgsConstructor;
 public class ExamServiceImpl implements ExamService {
 
     private final ExamRepository examRepository;
+    private final QuestionRepository questionRepository;
     private final SubjectRepository subjectRepository;
     private final StudentRepository studentRepository;
     private final UserRepository userRepository;
@@ -203,6 +206,25 @@ public class ExamServiceImpl implements ExamService {
         if (!exam.getStartTime().isAfter(now)) {
             throw new InvalidRequestException(
                 "Exam start time must be in the future"
+            );
+        }
+
+        List<Question> questions =
+            questionRepository.findByExamIdOrderByQuestionOrderAsc(id);
+
+        if (questions.isEmpty()) {
+            throw new InvalidRequestException(
+                "An exam must have at least one question before publishing"
+            );
+        }
+
+        long questionMarks = questions.stream()
+            .mapToLong(question -> question.getMarks())
+            .sum();
+
+        if (questionMarks != exam.getTotalMarks()) {
+            throw new InvalidRequestException(
+                "Exam total marks must equal the sum of question marks"
             );
         }
 

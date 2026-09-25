@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manage examinations">
+  <title>Exams | Exam Portal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="d-none">
+  <header>
+    <nav class="navbar navbar-expand-lg border-bottom bg-body">
+      <div class="container">
+        <a class="navbar-brand fw-semibold d-flex align-items-center gap-2" href="dashboard.html"><span class="brand-mark"><i class="bi bi-journal-check" aria-hidden="true"></i></span><span>Exam<span class="text-primary">Portal</span></span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavigation" aria-controls="adminNavigation" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="adminNavigation">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+            <li class="nav-item"><a class="nav-link" href="dashboard.html">Admin Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="programs.html">Programs</a></li>
+            <li class="nav-item"><a class="nav-link" href="subjects.html">Subjects</a></li>
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="exams.html">Exams</a></li>
+            <li class="nav-item"><a class="nav-link" href="questions.html">Questions</a></li>
+            <li class="nav-item"><a class="nav-link" href="results.html">Results</a></li>
+            <li class="nav-item"><span class="badge text-bg-light border">Administrator</span></li>
+            <li class="nav-item ms-lg-1"><button class="btn btn-outline-secondary theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark theme" title="Switch theme"><i class="bi bi-moon-stars" data-theme-icon aria-hidden="true"></i><span class="d-lg-none ms-2" data-theme-label>Dark theme</span></button></li>
+            <li class="nav-item ms-lg-1"><button class="btn btn-primary" type="button" data-logout><i class="bi bi-box-arrow-right me-1" aria-hidden="true"></i>Sign out</button></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container py-4 py-lg-5" data-exams-page>
+    <div class="student-welcome mb-4">
+      <div>
+        <span class="section-label">ADMINISTRATION</span>
+        <h1 class="h2 fw-semibold mt-2 mb-2">Exams</h1>
+        <p class="text-body-secondary mb-0">Create exams and manage their publication status.</p>
+      </div>
+      <button class="btn btn-primary" type="button" data-add-exam disabled><i class="bi bi-plus-lg me-2" aria-hidden="true"></i>Add Exam</button>
+    </div>
+
+    <div class="alert alert-warning d-none" role="status" data-no-subjects-message></div>
+    <div class="alert d-none" role="status" aria-live="polite" data-exams-feedback></div>
+    <div class="student-loading" role="status" data-exams-loading><span class="spinner-border spinner-border-sm text-primary" aria-hidden="true"></span><span>Loading exams…</span></div>
+    <div class="alert alert-danger d-none" role="alert" data-exams-error><div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-2"><span data-exams-error-message>Unable to load exams.</span><button class="btn btn-sm btn-outline-danger" type="button" data-retry-exams>Try again</button></div></div>
+    <section class="exam-empty-state d-none" data-exams-empty aria-labelledby="empty-exams-title"><div class="empty-state-icon"><i class="bi bi-file-earmark-text" aria-hidden="true"></i></div><h2 class="h5 mt-3" id="empty-exams-title">No exams yet</h2><p class="text-body-secondary">Create an exam for an existing subject to get started.</p><button class="btn btn-primary" type="button" data-add-exam disabled>Add Exam</button></section>
+    <div class="table-responsive auth-card d-none" data-exams-content>
+      <table class="table table-hover align-middle mb-0">
+        <thead><tr><th scope="col">ID</th><th scope="col">Title</th><th scope="col">Subject</th><th scope="col">Duration</th><th scope="col">Marks</th><th scope="col">Start</th><th scope="col">End</th><th scope="col">Status</th><th scope="col"><span class="visually-hidden">Actions</span></th></tr></thead>
+        <tbody data-exams-rows></tbody>
+      </table>
+    </div>
+  </main>
+
+  <div class="modal fade" id="examModal" tabindex="-1" aria-labelledby="examModalTitle" aria-hidden="true" data-exam-modal>
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <form data-exam-form novalidate>
+          <div class="modal-header"><div><span class="section-label">EXAM SETUP</span><h2 class="modal-title h5 mt-1" id="examModalTitle" data-exam-modal-title>Add Exam</h2></div><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
+          <div class="modal-body">
+            <div class="alert alert-danger d-none" role="alert" data-exam-form-error></div>
+            <div class="mb-3"><label class="form-label" for="examSubject">Subject</label><select class="form-select" id="examSubject" name="subjectId" required><option value="">Select a subject</option></select><div class="invalid-feedback">Select a subject.</div></div>
+            <div class="mb-3"><label class="form-label" for="examTitle">Title</label><input class="form-control" id="examTitle" name="title" type="text" maxlength="150" required><div class="invalid-feedback">Enter a title up to 150 characters.</div></div>
+            <div class="mb-3"><label class="form-label" for="examDescription">Description</label><textarea class="form-control" id="examDescription" name="description" maxlength="1000" rows="3"></textarea><div class="form-text">Optional. The API accepts up to 1000 characters.</div></div>
+            <div class="row g-3 mb-3">
+              <div class="col-md-4"><label class="form-label" for="examDuration">Duration (minutes)</label><input class="form-control" id="examDuration" name="durationMinutes" type="number" min="1" step="1" required><div class="invalid-feedback">Enter a positive whole number.</div></div>
+              <div class="col-md-4"><label class="form-label" for="examTotalMarks">Total marks</label><input class="form-control" id="examTotalMarks" name="totalMarks" type="number" min="1" step="1" required><div class="invalid-feedback">Enter a positive whole number.</div></div>
+              <div class="col-md-4"><label class="form-label" for="examPassingMarks">Passing marks</label><input class="form-control" id="examPassingMarks" name="passingMarks" type="number" min="1" step="1" required><div class="invalid-feedback">Must be at least 1 and no more than total marks.</div></div>
+            </div>
+            <div class="row g-3">
+              <div class="col-md-6"><label class="form-label" for="examStartTime">Start time</label><input class="form-control" id="examStartTime" name="startTime" type="datetime-local" required><div class="invalid-feedback">Choose a future start time.</div></div>
+              <div class="col-md-6"><label class="form-label" for="examEndTime">End time</label><input class="form-control" id="examEndTime" name="endTime" type="datetime-local" required><div class="invalid-feedback">Choose an end time after the start time.</div></div>
+            </div>
+          </div>
+          <div class="modal-footer"><button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary" type="submit" data-save-exam><span data-save-exam-label>Save Exam</span><span class="spinner-border spinner-border-sm ms-2 d-none" aria-hidden="true" data-save-exam-spinner></span></button></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer border-top py-4"><div class="container d-flex flex-column flex-sm-row justify-content-between align-items-center gap-2"><a class="footer-brand text-decoration-none fw-semibold" href="../index.html">Exam<span class="text-primary">Portal</span></a><p class="small text-body-secondary mb-0">&copy; <span data-current-year></span> Online Examination System</p></div></footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="../js/common.js" defer></script>
+  <script src="../js/api.js" defer></script>
+  <script src="../js/auth.js" defer></script>
+  <script src="../js/admin.js" defer></script>
+  <script src="../js/exams.js" defer></script>
+</body>
+</html>
